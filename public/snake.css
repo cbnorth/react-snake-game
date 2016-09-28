@@ -1,0 +1,73 @@
+body {
+	background-color: #fff;
+}
+
+.snakeGame {
+	margin: 20px auto;
+	position: relative;
+	text-align: center;
+}
+
+.snakeGame__title {
+	font-size: 20px;
+	font-weight: normal;
+	text-align: center;
+}
+
+.snakeGame__board {
+	margin: auto;
+	background: #222;
+	overflow: hidden;
+	outline: none;
+}
+
+.snakeControls {
+	left: 50%;
+	margin-left: -100px;
+	margin-top: -25px;
+	position: absolute;
+	top: 50%;
+}
+
+.snakeBontrols button {
+	background: #eee;
+	border: none;
+	box-shadow: 0px 0px 10px #000;
+	cursor: default;
+	font-size: 20px;
+	opacity: 0.75;
+	padding: 15px;
+	width: 200px;
+}
+
+.snakeBontrols button:hover {
+	opacity: 1;
+}
+
+.snakeGame__cell--Snake, .snakeGame__cell {
+	height: 30px;
+	width: 30px;
+}
+
+.snakeGame__cell--Snake, .snakeGame__cell--Food, .snakeGame__cell {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	float: left;
+	overflow: hidden;
+}
+
+.snakeGame__cell--Snake {
+	background: #4CFD2F;
+}
+
+.snakeGame__cell--Food {
+	background: #e20074;
+	height: 24px;
+	margin: 3px;
+	width: 24px;
+}
+
+.gameOver .snakeGame__cell--Snake {
+	background: #d04;
+	box-shadow: 0px 0px 5px #d04;
+}
