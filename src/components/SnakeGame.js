@@ -28,17 +28,15 @@ let SnakeGame = React.createClass({
 				let x = this.state.snake[i][0];
 				let y = this.state.snake[i][1];
 				if (this.state.direction === "right") {
+					//decided to loop instead of end game
 					if (y === this.state.multiplier) {
 						newPos.push([x, parseInt(1)])
 					} else {
 						newPos.push([x, parseInt(y + 1)])
 					}
 				} else if (this.state.direction === "left") {
-					for (let i in this.state.snake) {
-						let x = this.state.snake[i][0];
-						let y = this.state.snake[i][1];
-						newPos.push([x, parseInt(y - 1)])
-					}
+					//loop behavior
+					newPos.push([x, parseInt(y - 1)])
 				}
 
 			}
@@ -46,6 +44,9 @@ let SnakeGame = React.createClass({
 
 		//conditions for when snake head X, Y === food X, Y
 		//increase length and call this._newFood();
+
+		//condition for when snake body === snake head
+		//gameOver
 
 		this._snakePos(newPos);
 
