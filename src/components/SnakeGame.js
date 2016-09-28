@@ -1,12 +1,5 @@
 import React from 'react';
 
-let keymap = {
-  37: 'left',
-  38: 'up',
-  39: 'right',
-  40: 'down'
-};
-
 let SnakeGame = React.createClass({
 	getInitialState(){
 		return {
@@ -27,7 +20,6 @@ let SnakeGame = React.createClass({
 	},
 
 	_changeDirection(key) {
-		key.preventDefault();
 		let arrow = key.keyCode;
 		let direction = this.state.direction;
 
@@ -65,7 +57,6 @@ let SnakeGame = React.createClass({
 						newPos.push([x, parseInt(y + 1)])
 					}
 				} else if (this.state.direction === "left") {
-					//loop behavior
 					if (y === 0) {
 						newPos.push([x, parseInt(this.state.multiplier)])
 					} else {
@@ -74,10 +65,35 @@ let SnakeGame = React.createClass({
 				}
 
 			}
+		} else if (this.state.direction === 'down' || this.state.direction === 'up') {
+			for (let i in this.state.snake) {
+				let x = this.state.snake[i][0];
+				let y = this.state.snake[i][1];
+				if (this.state.direction === "down") {
+					if (x == this.state.multiplier) {
+						console.log('here');
+						newPos.push([1, y]);
+					} else {
+						newPos.push([parseInt(x + 1), y])
+					}
+				} else if (this.state.direction === "up") {
+					if (x === 1) {
+						newPos.push([parseInt(this.state.multiplier), y])
+					} else {
+						newPos.push([parseInt(x - 1), y])
+					}
+				}
+
+			}
 		}
 
-		//conditions for when snake head X, Y === food X, Y
-		//increase length and call this._newFood();
+		let snakeL = (newPos.length - 1)
+
+		if (newPos[snakeL].toString() === this.state.food.toString()) {
+			this._newFood();
+			//grow the snake
+		}
+
 
 		//condition for when snake body === snake head
 		//gameOver
@@ -94,8 +110,9 @@ let SnakeGame = React.createClass({
 	},
 
 	_newFood() {
-		let foodX = Math.floor(Math.random() * this.state.multiplier);
-		let foodY = Math.floor(Math.random() * this.state.multiplier);
+		let foodX = Math.floor(Math.random() * (this.state.multiplier - 1) + 1);
+		let foodY = Math.floor(Math.random() * (this.state.multiplier - 1) + 1);
+		console.log(foodX, foodY)
 		this.setState({
 			food: [foodX, foodY],
 		})
