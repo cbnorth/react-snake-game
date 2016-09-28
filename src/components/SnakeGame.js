@@ -1,5 +1,12 @@
 import React from 'react';
 
+let keymap = {
+  37: 'left',
+  38: 'up',
+  39: 'right',
+  40: 'down'
+};
+
 let SnakeGame = React.createClass({
 	getInitialState(){
 		return {
@@ -16,6 +23,29 @@ let SnakeGame = React.createClass({
 		this._snakePos();
 		this._newFood();
 		this._tic();
+		document.body.addEventListener('keydown', this._changeDirection, false);
+	},
+
+	_changeDirection(key) {
+		key.preventDefault();
+		let arrow = key.keyCode;
+		let direction = this.state.direction;
+
+		if (arrow === 37) {
+			direction = 'left'
+		} else if (arrow === 38) {
+			direction = 'up'
+		} else if (arrow === 39) {
+			direction = 'right'
+		} else if (arrow === 40) {
+			direction = 'down'
+		} else {
+			return false;
+		}
+
+		this.setState({
+			direction: direction
+		})
 	},
 
 	_tic() {
@@ -36,7 +66,11 @@ let SnakeGame = React.createClass({
 					}
 				} else if (this.state.direction === "left") {
 					//loop behavior
-					newPos.push([x, parseInt(y - 1)])
+					if (y === 0) {
+						newPos.push([x, parseInt(this.state.multiplier)])
+					} else {
+						newPos.push([x, parseInt(y - 1)])
+					}
 				}
 
 			}
@@ -51,10 +85,6 @@ let SnakeGame = React.createClass({
 		this._snakePos(newPos);
 
 		setTimeout(this._tic, 150);
-	},
-
-	_handleInput(e) {
-		console.log(e.charCode)
 	},
 
 	_snakePos(newPos) {
@@ -94,7 +124,7 @@ let SnakeGame = React.createClass({
 		}
 
 		return(
-			<div className="snakeGame" ref="game" onKeyPress={this._handleInput}>
+			<div className="snakeGame" ref="game">
 				<div className="snakeGame__board" style={{width: this.state.multiplier * this.state.numCells, height: this.state.multiplier *  this.state.numCells}}>
 					{cellArr}
 				</div>
