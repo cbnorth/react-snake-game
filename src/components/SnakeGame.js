@@ -44,6 +44,9 @@ let SnakeGame = React.createClass({
 			}
 		}
 
+		//conditions for when snake head X, Y === food X, Y
+		//increase length and call this._newFood();
+
 		this._snakePos(newPos);
 
 		setTimeout(this._tic, 150);
